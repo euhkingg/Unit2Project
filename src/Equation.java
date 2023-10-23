@@ -1,60 +1,67 @@
-import java.awt.Point;
 import java.io.*;
 import java.lang.Integer;
 public class Equation {
-    Point p1;
-    Point p2;
+    int x, y, x2, y2;
     double slope;
 
 
     public Equation(String point1, String point2) {
-        int x = Integer.parseInt(point1.substring(1, point1.indexOf(",")));
-        int y = Integer.parseInt(point1.substring(point1.indexOf(",") + 1, point1.indexOf(")")));
-        p1 = new Point(x, y);
-        int x2 = Integer.parseInt(point2.substring(1, point2.indexOf(",")));
-        int y2 = Integer.parseInt(point2.substring(point2.indexOf(",") + 1, point2.indexOf(")")));
-        p2 = new Point(x2, y2);
+        x = Integer.parseInt(point1.substring(1, point1.indexOf(",")));
+        y = Integer.parseInt(point1.substring(point1.indexOf(",") + 2, point1.indexOf(")")));
+        x2 = Integer.parseInt(point2.substring(1, point2.indexOf(",")));
+        y2 = Integer.parseInt(point2.substring(point2.indexOf(",") + 2, point2.indexOf(")")));
         slope = 0;
 
     }
 
     public String getP1() {
-        return p1.toString();
+        return "(" + x + ", " + y + ")";
     }
 
     public String getP2() {
-        return p2.toString();
+        return "(" + x2 + ", " + y2 + ")";
     }
 
     public double distance() {
-        return p1.distance(p2.getX(), p2.getY());
+        return Math.hypot(y - y2, x - x2);
     }
 
     public String slope() {
-        slope = (p2.getY() - p1.getY()) / (p2.getX() - p1.getX());
-        if (slope == 1) {
+        int changeX = x2 - x;
+        int changeY = y2 - y;
+        if (changeX != 0) {
+            slope = (double) (y2 - y) / (x2 - x);
+        } else {
+            return "undefined";
+        }
+
+        if (slope == 1.0) {
             return "";
-        } else if (slope == -1) {
+        } else if (slope == -1.0) {
             return "-";
         } else if (slope % 1.0 == 0) {
-            return String.valueOf(slope);
-        } else if (p2.getY() - p1.getY() < 0 && p2.getX() - p1.getX() < 0) {
-            return Math.abs((p2.getY() - p1.getY())) + "/" + Math.abs((p2.getX() - p1.getX()));
-        } else if (p2.getY() - p1.getY() > 0 && p2.getX() - p1.getX() < 0) {
-            return "-" + (p2.getY() - p1.getY()) + "/" + (p2.getX() - p1.getX());
+            return String.valueOf(slope).substring(0, String.valueOf(slope).indexOf("."));
+        } else if (changeY < 0 && changeX < 0) {
+            return Math.abs(changeY) + "/" + Math.abs(changeX);
+        } else if (changeY > 0 && changeX < 0) {
+            return "-" + Math.abs(changeY) + "/" + Math.abs(changeX);
         }
-        return (p2.getY() - p1.getY()) + "/" + (p2.getX() - p1.getX());
+        return (changeY) + "/" + (changeX);
     }
 
     public String yIntercept() {
-        double intercept  = p2.getY() - slope * p1.getX();
+        double intercept  = y - (x * slope);
         if (intercept < 0) {
-            return " - " + Math.abs(intercept);
+            return "- " + Math.abs(intercept);
         } else if (intercept == 0) {
             return "";
         } else {    
-            return " + " + intercept;
+            return "+ " + intercept;
         }
+    }
+
+    public String coordinateForX(double x) {
+        return "(" + x + ", " + (x * slope) + (y - (x * slope)) + ")";
     }
 
 }
