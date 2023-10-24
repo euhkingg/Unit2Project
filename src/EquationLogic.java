@@ -24,8 +24,9 @@ public class EquationLogic {
     }
 
     public String pointInfo() {
-        return "\nThe two points are: " + line.getP1() + " and " + line.getP2() + "\n" +
-                "The equation of the line between these points is: y = " + line.slope() + line.yIntercept() + "\n" +
+        return "\n----- Line info -----\n" +
+                "The two points are: " + line.getP1() + " and " + line.getP2() + "\n" +
+                "The equation of the line between these points is: " + line.slope() + line.yIntercept() + "\n" +
                 "The slope of this line is: " + line.roundHundredth(line.getSlope()) + "\n" +
                 "The y-intercept of the line is: " + line.getIntercept() + "\n" +
                 "The distance between the two points is: " + line.roundHundredth(line.distance());

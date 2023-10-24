@@ -29,27 +29,32 @@ public class Equation {
         int changeX = x2 - x;
         int changeY = y2 - y;
         if (changeY == 0) {
-            return "";
+            return "y = ";
+        } else if(changeX == 0) {
+            return "x = ";
         }
         slope = (double) changeY / changeX;
 
         if (slope == 1.0) {
-            return "x ";
+            return "y = x ";
         } else if (slope == -1.0) {
-            return "-x ";
+            return "y = -x ";
         } else if (slope % 1.0 == 0) {
-            return String.valueOf(slope).substring(0, String.valueOf(slope).indexOf(".")) + "x ";
+            return "y = " + String.valueOf(slope).substring(0, String.valueOf(slope).indexOf(".")) + "x ";
         } else if (changeY < 0 && changeX < 0) {
-            return Math.abs(changeY) + "/" + Math.abs(changeX) + "x ";
+            return "y = " + Math.abs(changeY) + "/" + Math.abs(changeX) + "x ";
         } else if (changeY > 0 && changeX < 0) {
-            return "-" + Math.abs(changeY) + "/" + Math.abs(changeX) + "x ";
+            return "y = -" + Math.abs(changeY) + "/" + Math.abs(changeX) + "x ";
         }
-        return (changeY) + "/" + (changeX) + "x ";
+        return "y = " + (changeY) + "/" + (changeX) + "x ";
     }
 
     public String yIntercept() {
         intercept = roundHundredth(y - (x * slope));
-        if (intercept < 0) {
+        if (x2 - x == 0) {
+            intercept = x;
+            return "" + x;
+        }else if (intercept < 0) {
             return "- " + Math.abs(intercept);
         } else if (intercept == 0) {
             return "";
