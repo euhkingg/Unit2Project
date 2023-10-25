@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class EquationLogic {
-    Equation line;
-    Scanner scan;
+    private Equation line;
+    private final Scanner scan;
 
     public EquationLogic() {
         line = null;
@@ -10,7 +10,7 @@ public class EquationLogic {
 
     public void Start() {
         getPoints();
-        System.out.println(pointInfo());
+        System.out.println(lineInfo());
         findXVal();
     }
 
@@ -23,7 +23,7 @@ public class EquationLogic {
         line = new Equation(p1, p2);
     }
 
-    public String pointInfo() {
+    public String lineInfo() {
         return "\n----- Line info -----\n" +
                 "The two points are: " + line.getP1() + " and " + line.getP2() + "\n" +
                 "The equation of the line between these points is: " + line.slope() + line.yIntercept() + "\n" +
@@ -35,11 +35,11 @@ public class EquationLogic {
     public void findXVal() {
         System.out.print("\nEnter a value for x: ");
         System.out.println(line.coordinateForX(scan.nextDouble()));
-        System.out.print("\nWould you like to enter another pair of coordinates? ");
-        String yn = scan.nextLine();
+        System.out.print("\nWould you like to enter another pair of coordinates? (y/n) ");
         if (scan.nextLine().equals("y")) {
             System.out.print("\n");
             Start();
         }
+        System.out.println("Goodbye.");
     }
 }

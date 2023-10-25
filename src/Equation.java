@@ -1,8 +1,7 @@
-import java.io.*;
 import java.lang.Integer;
 public class Equation {
-    int x, y, x2, y2;
-    double slope, intercept;
+    private final int x, y, x2, y2;
+    private double slope, intercept;
 
     public Equation(String point1, String point2) {
         x = Integer.parseInt(point1.substring(1, point1.indexOf(",")));
@@ -55,14 +54,16 @@ public class Equation {
             intercept = x;
             return "" + x;
         }else if (intercept < 0) {
+            if (slope == 0) {
+                return "" + intercept;
+            }
             return "- " + Math.abs(intercept);
         } else if (intercept == 0) {
             return "";
         } else if (slope == 0) {
             return "" + intercept;
-        } else {
-            return "+ " + intercept;
         }
+        return "+ " + intercept;
     }
 
     public String coordinateForX(double x) {
